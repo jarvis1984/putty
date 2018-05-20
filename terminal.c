@@ -1299,13 +1299,13 @@ void term_update(Terminal *term)
     ctx = get_ctx(term->frontend);
     if (ctx) {
 	int need_sbar_update = term->seen_disp_event;
-	if (term->seen_disp_event && term->scroll_on_disp) {
+	if (term->seen_disp_event && term->scroll_on_disp && term->disptop == 0) {
 	    term->disptop = 0;	       /* return to main screen */
 	    term->seen_disp_event = 0;
 	    need_sbar_update = TRUE;
 	}
 
-	if (need_sbar_update)
+	if (need_sbar_update && term->disptop == 0)
 	    update_sbar(term);
 	do_paint(term, ctx, TRUE);
 	sys_cursor(term->frontend, term->curs.x, term->curs.y - term->disptop);
