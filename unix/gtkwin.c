@@ -4326,6 +4326,14 @@ static void get_monitor_geometry(GtkWidget *widget, GdkRectangle *geometry)
 #endif
 }
 
+void print_debug(GtkMenuItem *item, gpointer data)
+{
+    struct gui_data *inst = (struct gui_data *)data;
+    char str[30] = "";
+    snprintf(str, 30, "[Debug] width:%d height:%d\n", inst->width, inst->height);
+    logevent(inst, str);
+}
+
 struct gui_data *new_session_window(Conf *conf, const char *geometry_string)
 {
     struct gui_data *inst;
@@ -4626,6 +4634,9 @@ struct gui_data *new_session_window(Conf *conf, const char *geometry_string)
 	MKMENUITEM("Clear Scrollback", clear_scrollback_menuitem);
 	MKMENUITEM("Reset Terminal", reset_terminal_menuitem);
 	MKMENUITEM("Copy All", copy_all_menuitem);
+#ifdef PUTTY_DBG
+    MKMENUITEM("Debug Info", print_debug);
+#endif
 	MKSEP();
 	s = dupcat("About ", appname, NULL);
 	MKMENUITEM(s, about_menuitem);

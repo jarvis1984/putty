@@ -1,7 +1,8 @@
 This is a customized version of PuTTY,
-for my own convience at work.
+for which is focused on the use as a serial terminal on linux.
 Currently it is tested only in Ubuntu16.04,
 and the following customized features are provided:
 1. Not to move scroll bar when it is not at the bottom.
+2. Debug message log
 
 See the file LICENCE for the licence conditions.
