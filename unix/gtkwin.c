@@ -4334,6 +4334,12 @@ void print_debug(GtkMenuItem *item, gpointer data)
     logevent(inst, str);
 }
 
+void copy_text_in_window(GtkMenuItem *item, gpointer data)
+{
+    struct gui_data *inst = (struct gui_data *)data;
+    term_copypart(inst->term, inst->height, 0);
+}
+
 struct gui_data *new_session_window(Conf *conf, const char *geometry_string)
 {
     struct gui_data *inst;
@@ -4634,6 +4640,7 @@ struct gui_data *new_session_window(Conf *conf, const char *geometry_string)
 	MKMENUITEM("Clear Scrollback", clear_scrollback_menuitem);
 	MKMENUITEM("Reset Terminal", reset_terminal_menuitem);
 	MKMENUITEM("Copy All", copy_all_menuitem);
+    MKMENUITEM("Copy Window", copy_text_in_window);
 #ifdef PUTTY_DBG
     MKMENUITEM("Debug Info", print_debug);
 #endif

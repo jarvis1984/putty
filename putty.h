@@ -1036,6 +1036,7 @@ void term_do_paste(Terminal *);
 void term_nopaste(Terminal *);
 int term_ldisc(Terminal *, int option);
 void term_copyall(Terminal *);
+void term_copypart(Terminal *, int , int );
 void term_reconfig(Terminal *, Conf *);
 void term_seen_key_event(Terminal *); 
 int term_data(Terminal *, int is_stderr, const char *data, int len);

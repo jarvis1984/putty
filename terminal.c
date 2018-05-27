@@ -5633,6 +5633,17 @@ void term_copyall(Terminal *term)
     clipme(term, top, bottom, 0, TRUE);
 }
 
+void term_copypart(Terminal *term, int from, int to)
+{
+    pos top;
+    pos bottom;
+    top.y = from - term->disptop;
+    top.x = 0;
+    bottom.y = top.y + (to - from);
+    bottom.x = term->cols;
+    clipme(term, top, bottom, 0, TRUE);
+}
+
 /*
  * The wordness array is mainly for deciding the disposition of the
  * US-ASCII characters.
