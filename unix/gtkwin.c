@@ -4330,7 +4330,8 @@ void print_debug(GtkMenuItem *item, gpointer data)
 {
     struct gui_data *inst = (struct gui_data *)data;
     char str[30] = "";
-    snprintf(str, 30, "[Debug] width:%d height:%d\n", inst->width, inst->height);
+    //snprintf(str, 30, "[Debug] width:%d height:%d\n", inst->width, inst->height);
+    snprintf(str, 30, "[Debug] path:%s\n", inst->term->logpath);
     logevent(inst, str);
 }
 

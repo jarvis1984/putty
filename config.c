@@ -1711,6 +1711,17 @@ void setup_config_box(struct controlbox *b, int midsession,
 		  'd', HELPCTX(features_bidi), conf_checkbox_handler,
 		  I(CONF_bidi));
 
+	/**
+     * The Terminal/Logs panel.
+     */
+    ctrl_settitle(b, "Terminal/Logs",
+		  "Log file settings");
+
+    s = ctrl_getset(b, "Terminal/Logs", "log", "Config log files");
+	ctrl_editbox(s, "File path", 'f', 100,
+		 HELPCTX(terminal_log_path),
+		 conf_editbox_handler, I(CONF_log_path), I(1));
+
     /*
      * The Window panel.
      */

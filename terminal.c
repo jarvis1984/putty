@@ -1434,6 +1434,16 @@ void term_copy_stuff_from_conf(Terminal *term)
 	    }
 	}
     }
+
+	char *path = conf_get_str(term->conf, CONF_log_path);
+	int len = strlen(path);
+	term->logpath = snewn(len + 1, char);	/** One more char for EOL */
+
+	for (int i = 0; i < len; ++i) {
+		term->logpath[i] = path[i];
+	}
+
+	term->logpath[len] = '\0';
 }
 
 /*

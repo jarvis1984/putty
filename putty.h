@@ -832,6 +832,7 @@ void cleanup_exit(int);
     X(STR, NONE, printer) \
     X(INT, NONE, arabicshaping) \
     X(INT, NONE, bidi) \
+    X(STR, NONE, log_path) \
     /* Colour options */ \
     X(INT, NONE, ansi_colour) \
     X(INT, NONE, xterm_256_colour) \

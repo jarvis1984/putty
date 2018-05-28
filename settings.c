@@ -581,6 +581,7 @@ void save_open_settings(void *sesskey, Conf *conf)
     write_setting_filename(sesskey, "BellWaveFile", conf_get_filename(conf, CONF_bell_wavefile));
     write_setting_i(sesskey, "BellOverload", conf_get_int(conf, CONF_bellovl));
     write_setting_i(sesskey, "BellOverloadN", conf_get_int(conf, CONF_bellovl_n));
+    write_setting_s(sesskey, "LogPath", conf_get_str(conf, CONF_log_path));
     write_setting_i(sesskey, "BellOverloadT", conf_get_int(conf, CONF_bellovl_t)
 #ifdef PUTTY_UNIX_H
 		    * 1000
@@ -967,6 +968,7 @@ void load_open_settings(void *sesskey, Conf *conf)
     gppfile(sesskey, "BellWaveFile", conf, CONF_bell_wavefile);
     gppi(sesskey, "BellOverload", 1, conf, CONF_bellovl);
     gppi(sesskey, "BellOverloadN", 5, conf, CONF_bellovl_n);
+    gpps(sesskey, "LogPath", "", conf, CONF_log_path);
     i = gppi_raw(sesskey, "BellOverloadT", 2*TICKSPERSEC
 #ifdef PUTTY_UNIX_H
 				   *1000

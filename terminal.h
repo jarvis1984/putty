@@ -285,6 +285,7 @@ struct terminal_tag {
      */
     int ansi_colour;
     char *answerback;
+    char *logpath;
     int answerbacklen;
     int arabicshaping;
     int beep;
