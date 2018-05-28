@@ -5637,10 +5637,17 @@ void term_copypart(Terminal *term, int from, int to)
 {
     pos top;
     pos bottom;
-    top.y = from - term->disptop;
+	tree234 *screen = term->screen;
+	
+    top.y = find_last_nonempty_line(term, screen) + term->disptop + from;
     top.x = 0;
-    bottom.y = top.y + (to - from);
+	bottom.y = top.y + (to - from);
     bottom.x = term->cols;
+
+	if (top.y < 0)
+		top.y = 0;
+	if (bottom.y < 0)
+		bottom.y = 0;
     clipme(term, top, bottom, 0, TRUE);
 }
 
