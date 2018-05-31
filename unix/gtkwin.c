@@ -36,6 +36,7 @@
 #include "gtkcompat.h"
 #include "gtkfont.h"
 #include "gtkmisc.h"
+#include "log.h"
 
 #ifndef NOT_X_WINDOWS
 #include <gdk/gdkx.h>
@@ -140,6 +141,8 @@ struct gui_data {
     int cursor_type;
     int drawtype;
     int meta_mod_mask;
+
+    log_file log;
 };
 
 static void cache_conf_values(struct gui_data *inst)
@@ -4341,6 +4344,19 @@ void copy_text_in_window(GtkMenuItem *item, gpointer data)
     term_copypart(inst->term, -inst->height, 0);
 }
 
+void log_on(GtkMenuItem *item, gpointer data)
+{
+    struct gui_data *inst = (struct gui_data *)data;
+    inst->log.path = inst->term->logpath;
+    start_log(&inst->log);
+}
+
+void log_off(GtkMenuItem *item, gpointer data)
+{
+    struct gui_data *inst = (struct gui_data *)data;
+    stop_log(&inst->log);
+}
+
 struct gui_data *new_session_window(Conf *conf, const char *geometry_string)
 {
     struct gui_data *inst;
@@ -4646,6 +4662,9 @@ struct gui_data *new_session_window(Conf *conf, const char *geometry_string)
     MKMENUITEM("Debug Info", print_debug);
 #endif
 	MKSEP();
+    MKMENUITEM("Log On", log_on);
+    MKMENUITEM("Log Off", log_off);
+    MKSEP();
 	s = dupcat("About ", appname, NULL);
 	MKMENUITEM(s, about_menuitem);
 	sfree(s);

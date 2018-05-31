@@ -240,7 +240,7 @@ GUITERM  = TERMINAL window windlg winctrls sizetip winprint winutils
 
 # Same thing on Unix.
 UXTERM   = TERMINAL uxcfg sercfg uxucs uxprint timing callback miscucs
-GTKTERM  = UXTERM gtkwin gtkcfg gtkdlg gtkfont gtkcols gtkmisc xkeysym
+GTKTERM  = UXTERM log gtkwin gtkcfg gtkdlg gtkfont gtkcols gtkmisc xkeysym
 	 + x11misc gtkcomm
 
 # Non-SSH back ends (putty, puttytel, plink).
