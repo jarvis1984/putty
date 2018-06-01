@@ -235,6 +235,7 @@ char *get_ttymode(void *frontend, const char *mode)
 int from_backend(void *frontend, int is_stderr, const char *data, int len)
 {
     struct gui_data *inst = (struct gui_data *)frontend;
+    add_log(&inst->log, data, len);
     return term_data(inst->term, is_stderr, data, len);
 }
 
@@ -2021,6 +2022,7 @@ void notify_remote_exit(void *frontend)
 
 void destroy(GtkWidget *widget, gpointer data)
 {
+    close_log_thread();
     gtk_main_quit();
 }
 
@@ -4333,8 +4335,9 @@ void print_debug(GtkMenuItem *item, gpointer data)
 {
     struct gui_data *inst = (struct gui_data *)data;
     char str[30] = "";
-    //snprintf(str, 30, "[Debug] width:%d height:%d\n", inst->width, inst->height);
-    snprintf(str, 30, "[Debug] path:%s\n", inst->term->logpath);
+    snprintf(str, 30, "[Debug] log:%s\n", inst->log.buf.space);
+    logevent(inst, str);
+    snprintf(str, 30, "[Debug] head:%d tail:%d\n", inst->log.buf.head, inst->log.buf.tail);
     logevent(inst, str);
 }
 
@@ -4692,6 +4695,7 @@ struct gui_data *new_session_window(Conf *conf, const char *geometry_string)
     start_backend(inst);
 
     ldisc_echoedit_update(inst->ldisc);     /* cause ldisc to notice changes */
+    init_log_thread(&inst->log);
 
     inst->exited = FALSE;
 
