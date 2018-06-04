@@ -2022,7 +2022,8 @@ void notify_remote_exit(void *frontend)
 
 void destroy(GtkWidget *widget, gpointer data)
 {
-    close_log_thread();
+    struct gui_data *inst = (struct gui_data *)data;
+    close_log_thread(&inst->log);
     gtk_main_quit();
 }
 

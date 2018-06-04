@@ -26,6 +26,6 @@ extern int start_log(log_file *);
 extern int stop_log(log_file *);
 extern int add_log(log_file *, const char *, int);
 int init_log_thread(log_file *);
-int close_log_thread(void);
+int close_log_thread(log_file *);
 
 #endif
