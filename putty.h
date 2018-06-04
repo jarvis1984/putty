@@ -340,6 +340,11 @@ enum {
 };
 
 enum {
+    /* Log filter settings (CONF_log_filter) */
+    FILTER_DISABLED, FILTER_INCLUDE, FILTER_EXCLUDE
+};
+
+enum {
     /* Taskbar flashing indication on bell (CONF_beep_ind) */
     B_IND_DISABLED, B_IND_FLASH, B_IND_STEADY
 };
@@ -833,6 +838,8 @@ void cleanup_exit(int);
     X(INT, NONE, arabicshaping) \
     X(INT, NONE, bidi) \
     X(STR, NONE, log_path) \
+    X(INT, NONE, log_filter) \
+    X(STR, NONE, log_keyword) \
     /* Colour options */ \
     X(INT, NONE, ansi_colour) \
     X(INT, NONE, xterm_256_colour) \

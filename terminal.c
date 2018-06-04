@@ -1411,6 +1411,7 @@ void term_copy_stuff_from_conf(Terminal *term)
     term->scroll_on_disp = conf_get_int(term->conf, CONF_scroll_on_disp);
     term->scroll_on_key = conf_get_int(term->conf, CONF_scroll_on_key);
     term->xterm_256_colour = conf_get_int(term->conf, CONF_xterm_256_colour);
+	term->log_filter = conf_get_int(term->conf, CONF_log_filter);
 
     /*
      * Parse the control-character escapes in the configured
@@ -1435,15 +1436,23 @@ void term_copy_stuff_from_conf(Terminal *term)
 	}
     }
 
-	char *path = conf_get_str(term->conf, CONF_log_path);
-	int len = strlen(path);
+	char *str = conf_get_str(term->conf, CONF_log_path);
+	int len = strlen(str);
 	term->logpath = snewn(len + 1, char);	/** One more char for EOL */
 
 	for (int i = 0; i < len; ++i) {
-		term->logpath[i] = path[i];
+		term->logpath[i] = str[i];
 	}
-
 	term->logpath[len] = '\0';
+
+	str = conf_get_str(term->conf, CONF_log_keyword);
+	len = strlen(str);
+	term->logkey = snewn(len + 1, char);	/** One more char for EOL */
+
+	for (int i = 0; i < len; ++i) {
+		term->logkey[i] = str[i];
+	}
+	term->logkey[len] = '\0';
 }
 
 /*

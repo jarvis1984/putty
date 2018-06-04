@@ -1717,10 +1717,21 @@ void setup_config_box(struct controlbox *b, int midsession,
     ctrl_settitle(b, "Terminal/Logs",
 		  "Log file settings");
 
-    s = ctrl_getset(b, "Terminal/Logs", "log", "Config log files");
-	ctrl_editbox(s, "File path", 'f', 100,
+    s = ctrl_getset(b, "Terminal/Logs", "path", "Config log files");
+	ctrl_editbox(s, "File path", 'p', 100,
 		 HELPCTX(terminal_log_path),
 		 conf_editbox_handler, I(CONF_log_path), I(1));
+
+	s = ctrl_getset(b, "Terminal/Logs", "filter", "Log filter");
+	 ctrl_radiobuttons(s, "Filter Mode", 'm', 1,
+		      HELPCTX(log_mode),
+		      conf_radiobutton_handler, I(CONF_log_filter),
+		      "Filter Disabled", I(FILTER_DISABLED),
+		      "Filter Including", I(FILTER_INCLUDE),
+		      "Filter Excluding", I(FILTER_EXCLUDE), NULL);
+	ctrl_editbox(s, "Key Word", 'k', 100,
+		 HELPCTX(terminal_log_keyword),
+		 conf_editbox_handler, I(CONF_log_keyword), I(1));
 
     /*
      * The Window panel.

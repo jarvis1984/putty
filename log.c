@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <pthread.h>
+#include "puttymem.h"
 #include "log.h"
 
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -43,6 +44,8 @@ int stop_log(log_file *log)
     if (log->on_off)
     {
         close(log->fd);
+        sfree(log->path);
+        sfree(log->filt_key);
         log->on_off = 0;
     }
 
