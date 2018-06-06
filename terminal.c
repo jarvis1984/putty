@@ -1448,6 +1448,7 @@ void term_copy_stuff_from_conf(Terminal *term)
 	str = conf_get_str(term->conf, CONF_log_keyword);
 	len = strlen(str);
 	term->logkey = snewn(len + 1, char);	/** One more char for EOL */
+	term->key_len = len;
 
 	for (int i = 0; i < len; ++i) {
 		term->logkey[i] = str[i];

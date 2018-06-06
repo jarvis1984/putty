@@ -10,6 +10,7 @@
 typedef struct {
     int head;
     int tail;
+    int carriage[LOG_BUF_SIZE];
     char space[LOG_BUF_SIZE];
 } log_buf;
 
@@ -17,6 +18,8 @@ typedef struct {
     int on_off;
     int fd;
     int filt;
+    int line;
+    int key_len;
     char *path;
     char *filt_key;
     log_buf buf;

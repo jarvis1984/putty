@@ -288,6 +288,7 @@ struct terminal_tag {
     char *logpath;
     char *logkey;
     int log_filter;
+    int key_len;
     int answerbacklen;
     int arabicshaping;
     int beep;

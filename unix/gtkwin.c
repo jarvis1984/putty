@@ -4339,7 +4339,7 @@ void print_debug(GtkMenuItem *item, gpointer data)
     //snprintf(str, 30, "[Debug] log:%s\n", inst->log.buf.space);
     //logevent(inst, str);
     //snprintf(str, 30, "[Debug] head:%d tail:%d\n", inst->log.buf.head, inst->log.buf.tail);
-    snprintf(str, 30, "[Debug] filt:%d\n", inst->log.filt);
+    snprintf(str, 30, "[Debug] len:%d\n", inst->log.key_len);
     logevent(inst, str);
     snprintf(str, 30, "[Debug] key:%s\n", inst->log.filt_key);
     logevent(inst, str);
@@ -4356,6 +4356,7 @@ void log_on(GtkMenuItem *item, gpointer data)
     struct gui_data *inst = (struct gui_data *)data;
     inst->log.path = inst->term->logpath;
     inst->log.filt_key = inst->term->logkey;
+    inst->log.key_len = inst->term->key_len;
     inst->log.filt = inst->term->log_filter;
     start_log(&inst->log);
 }
