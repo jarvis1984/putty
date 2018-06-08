@@ -5,7 +5,7 @@
 #ifndef PUTTY_LOG_H
 #define PUTTY_LOG_H
 
-#define LOG_BUF_SIZE 500
+#define LOG_BUF_SIZE 5000
 
 typedef struct {
     int head;
