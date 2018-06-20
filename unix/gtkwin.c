@@ -4351,6 +4351,16 @@ void copy_text_in_window(GtkMenuItem *item, gpointer data)
     term_copypart(inst->term, -inst->height, 0);
 }
 
+void show_log_sta(void *frontend)
+{
+    struct gui_data *inst = (struct gui_data *)frontend;
+    char *title = dupcat(inst->wintitle, inst->log.on_off ? " - Log On" : " - Log Off", NULL);
+
+    gtk_window_set_title(GTK_WINDOW(inst->window), title);
+    if (!conf_get_int(inst->conf, CONF_win_name_always))
+	    gdk_window_set_icon_name(gtk_widget_get_window(inst->window), title);
+}
+
 void log_on(GtkMenuItem *item, gpointer data)
 {
     struct gui_data *inst = (struct gui_data *)data;
@@ -4359,12 +4369,14 @@ void log_on(GtkMenuItem *item, gpointer data)
     inst->log.key_len = inst->term->key_len;
     inst->log.filt = inst->term->log_filter;
     start_log(&inst->log);
+    show_log_sta(inst);
 }
 
 void log_off(GtkMenuItem *item, gpointer data)
 {
     struct gui_data *inst = (struct gui_data *)data;
     stop_log(&inst->log);
+    show_log_sta(inst);
 }
 
 struct gui_data *new_session_window(Conf *conf, const char *geometry_string)

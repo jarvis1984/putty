@@ -15,7 +15,7 @@ static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 int isDir(const char *path)
 {
     struct stat statbuf;
-    if (stat(path, &statbuf) != 0)
+    if (stat(path, &statbuf))
         return 0;
     return S_ISDIR(statbuf.st_mode);
 }
@@ -83,13 +83,22 @@ int stop_log(log_file *log)
 {
     if (log->on_off)
     {
-        flush_all(log);
+        struct stat statbuf;
+        if (!stat(log->path, &statbuf))
+            flush_all(log);
+
         close(log->fd);
-        sfree(log->path);
-        sfree(log->filt_key);
         log->on_off = 0;
     }
 
+    return 0;
+}
+
+int release_log(log_file *log)
+{
+    stop_log(log);
+    sfree(log->path);
+    sfree(log->filt_key);
     return 0;
 }
 
@@ -281,6 +290,6 @@ int init_log_thread(log_file *log)
 int close_log_thread(log_file *log)
 {
     pthread_cancel(log_thread);
-    stop_log(log);
+    release_log(log);
     return 0;
 }
